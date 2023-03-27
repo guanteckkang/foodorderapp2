@@ -6,6 +6,7 @@ import CardList from "./CardList";
 import BasicModal from "./Modal";
 import { Helmet } from "react-helmet";
 import { useEffect } from "react";
+
 export function User() {
   const {
     menu3,

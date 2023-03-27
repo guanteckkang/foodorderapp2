@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { CartUseContext } from "../../content/cart-contex";
 import AirplayIcon from "@mui/icons-material/Airplay";
 import EditIcon from "@mui/icons-material/Edit";
@@ -9,10 +9,9 @@ import CardContent from "@mui/material/CardContent";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { textAlign } from "@mui/system";
 import "./addMenu.css";
-import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
+
 export function AddMenu() {
   const { menu, setMenu } = CartUseContext();
   const [card, setCard] = useState({
@@ -43,17 +42,17 @@ export function AddMenu() {
   function add(e) {
     e.preventDefault();
     const compareSKU = menu.findIndex((i) => {
-      return i.sku == sku;
+      return i.sku === sku;
     });
     let asdas = "fsadf";
     console.log(asdas / 1);
-    if (compareSKU == -1 && price >= 0 && quantity > 0) {
+    if (compareSKU === -1 && price >= 0 && quantity > 0) {
       setMenu((prev) => [...prev, card]);
       resetvalue();
       alert("Product added");
-    } else if (price < 0 || price / 1 === NaN) {
+    } else if (price < 0 || price / 1 === isNaN) {
       alert("The price must be at least Rm 0 ");
-    } else if (quantity <= 0 || quantity / 1 === NaN) {
+    } else if (quantity <= 0 || quantity / 1 === isNaN) {
       alert("The quantity must be at least 1 ");
     } else if (compareSKU > 0) {
       alert("Choose different SKU");

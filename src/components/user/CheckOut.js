@@ -9,7 +9,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
 import { CartUseContext } from "../../content/cart-contex";
 import { ItemUseContext } from "../../content/item-contex";
-import { useEffect, useState } from "react";
 
 export function CheckOut() {
   const { item, cart, setCart, hidemodal, addItem, removeItem, menu, setMenu } =
@@ -24,21 +23,6 @@ export function CheckOut() {
   };
 
   function deleteAll() {
-    // if (cart.length === 0) {
-    //   return;
-    // } else {
-    //   for (let i = 0; i <= cart.length; i++) {
-    //     menu.map((e) => {
-    //       if (e.name === cart[i]?.name) {
-    //         return {
-    //           ...e,
-    //           quantity: e.quantity + cart[i].quantity,
-    //         };
-    //       } else return e;
-    //     });
-    //   }
-    //   setCart([]);
-    // }
     setCart([]);
     setMenu(item);
     closebox();
@@ -55,7 +39,7 @@ export function CheckOut() {
     });
     setMenu(returnquantity);
     const filter = cart.filter((e) => {
-      return e.sku != info.sku;
+      return e.sku !== info.sku;
     });
     setCart(filter);
     if (cart.length === 0) {
@@ -69,7 +53,7 @@ export function CheckOut() {
       quantity: JSON.parse(totalquantity),
       sum: JSON.parse(totalsum),
     };
-    if (cart.length != 0) {
+    if (cart.length !== 0) {
       if (history.length === 0) {
         setHistory([pastbuy]);
       } else {
@@ -167,7 +151,7 @@ export function CheckOut() {
               <TableCell></TableCell>
               <TableCell></TableCell>
               <TableCell align="right">
-                {cart.length == 0 ? "" : totalsum}
+                {cart.length === 0 ? "" : totalsum}
               </TableCell>
               <TableCell align="right">
                 <Button

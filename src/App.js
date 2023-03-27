@@ -1,8 +1,7 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartContextProvider } from "./content/cart-contex";
 import { ItemContextProvider } from "./content/item-contex";
-import { Footer } from "./components/footer/footer";
 import { LandingPage } from "./components/LandingPage/Landing";
 import Admin from "./components/admin/admin";
 import { User } from "./components/user/User";
@@ -27,7 +26,6 @@ export default function App() {
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="*" element={<NotFound setId={setId} />} />
           </Routes>
-          <Footer id={id} setId={setId} />
         </ItemContextProvider>
       </CartContextProvider>
     </BrowserRouter>

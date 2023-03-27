@@ -1,4 +1,3 @@
-import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
@@ -11,15 +10,15 @@ import AirplayIcon from "@mui/icons-material/Airplay";
 import DesktopAccessDisabledIcon from "@mui/icons-material/DesktopAccessDisabled";
 import { ItemUseContext } from "../../content/item-contex";
 import { CartUseContext } from "../../content/cart-contex";
-import DisplayModal from "./ModalDisplay";
+
 export default function ItemCard({ info }) {
-  const { sku, display, name, price, description, url, quantity } = info;
-  const { handleOpen, open, setModal } = ItemUseContext();
+  const { sku, display, name, price, url, quantity } = info;
+  const { handleOpen } = ItemUseContext();
   const { menu, setMenu } = CartUseContext();
 
   function displayItem() {
     const findItem = menu.findIndex((e) => {
-      return e.sku == sku;
+      return e.sku === sku;
     });
     const updatedMenu = menu.map((each, i) => {
       if (i === findItem) {

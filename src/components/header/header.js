@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Button, Box, Typography } from "@mui/material";
+import { AppBar, Toolbar, Typography } from "@mui/material";
 import ContactPageIcon from "@mui/icons-material/ContactPage";
 import InfoIcon from "@mui/icons-material/Info";
 import IconButton from "@mui/material/IconButton";
@@ -7,7 +7,7 @@ import { styled } from "@mui/material/styles";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { CartUseContext } from "../../content/cart-contex";
 import reverse from "../../img/reverse.png";
-import { useNavigate } from "react-router-dom";
+
 import { useEffect } from "react";
 import "./header.css";
 
@@ -25,8 +25,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 export default function Header({ id, setId }) {
-  const { cart, showmodal } = CartUseContext();
-  const navigate = useNavigate();
+  const { cart, showmodal, navigate } = CartUseContext();
 
   useEffect(() => {
     if (id === null) {

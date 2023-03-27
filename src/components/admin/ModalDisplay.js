@@ -4,7 +4,7 @@ import Modal from "@mui/material/Modal";
 import { ItemUseContext } from "../../content/item-contex";
 import { CartUseContext } from "../../content/cart-contex";
 import "./modaldisplay.css";
-import { useRef, useState, useEffect } from "react";
+import { useState } from "react";
 const style = {
   position: "absolute",
   top: "50%",
@@ -28,7 +28,7 @@ export default function DisplayModal() {
 
     function editchange() {
       const updateditem = menu.map((each) => {
-        if (each.uid == uid) {
+        if (each.uid === uid) {
           return {
             ...each,
             name: name,
@@ -131,7 +131,7 @@ export default function DisplayModal() {
 
     const yes = () => {
       const filter = menu.filter((e) => {
-        return e.name != name;
+        return e.name !== name;
       });
       setMenu(filter);
       handleClose();
@@ -171,7 +171,7 @@ export default function DisplayModal() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>{modal == 1 ? <Edit /> : <Erase />}</Box>
+        <Box sx={style}>{modal === 1 ? <Edit /> : <Erase />}</Box>
       </Modal>
     </div>
   );

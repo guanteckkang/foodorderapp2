@@ -1,8 +1,6 @@
 import { useContext, useState } from "react";
-import { useEffect } from "react";
 import { createContext } from "react";
 import { item } from "./item";
-import axios from "axios";
 export const cartcontext = createContext();
 
 export function CartContextProvider({ children }) {
@@ -32,7 +30,7 @@ export function CartContextProvider({ children }) {
   // user add function
   function addItem({ info }) {
     const findItem = cart.findIndex((e) => {
-      return e.sku == info.sku;
+      return e.sku === info.sku;
     });
     if (findItem === -1) {
       const selectedItem = {
@@ -86,7 +84,7 @@ export function CartContextProvider({ children }) {
       } else return each;
     });
     const findItem = updatedCart.findIndex((e) => {
-      return e.sku == info.sku;
+      return e.sku === info.sku;
     });
     if (updatedCart[findItem].quantity === 0) {
       updatedCart.splice(findItem, 1);

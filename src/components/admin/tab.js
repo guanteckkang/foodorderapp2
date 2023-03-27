@@ -3,12 +3,12 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import PropTypes from "prop-types";
-import { ItemUseContext } from "../../content/item-contex";
+
 import { CartUseContext } from "../../content/cart-contex";
 import DisplayModal from "./ModalDisplay";
 import { AddMenu } from "./addMenu";
 import History from "./History";
-import Chart from "./chart";
+
 import ItemCard from "./card";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";

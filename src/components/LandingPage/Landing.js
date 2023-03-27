@@ -43,7 +43,7 @@ export function LandingPage({ setId }) {
           <ArrowBackIcon />
         </h1>
       </div>
-      <img src={hero} width="100%" />
+      <img src={hero} alt="broken imgage" width="100%" />
       <h4
         style={{ margin: "0", textAlign: "right", paddingRight: "10px" }}
         id="landingcredit"

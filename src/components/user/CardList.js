@@ -5,14 +5,14 @@ import CardMedia from "@mui/material/CardMedia";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { CartUseContext } from "../../content/cart-contex";
-import { useContext, useEffect, useState, useMemo } from "react";
 import "./CardList.css";
+
 export default function CardList({ info }) {
   const { addItem, removeItem, cart } = CartUseContext();
-  const { name, description, price, url, quantity, sku } = info;
+  const { name, price, url, quantity } = info;
 
   const findItem = cart.find((e) => {
-    return e.name == name;
+    return e.name === name;
   });
 
   return (
@@ -80,7 +80,7 @@ export default function CardList({ info }) {
             onClick={() => {
               removeItem({ info });
             }}
-            disabled={findItem == undefined}
+            disabled={findItem === undefined}
           >
             -
           </IconButton>

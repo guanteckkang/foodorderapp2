@@ -6,9 +6,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Button from "@mui/material/Button";
 import { ItemUseContext } from "../../content/item-contex";
-import { useEffect, useState } from "react";
 
 export default function History() {
   const { history, setHistory } = ItemUseContext();
@@ -77,10 +75,10 @@ export default function History() {
             <TableCell></TableCell>
 
             <TableCell align="center" style={r}>
-              {history.length == 0 ? "" : totalquantity}
+              {history.length === 0 ? "" : totalquantity}
             </TableCell>
             <TableCell align="right" style={r}>
-              {history.length == 0 ? "" : totalsum}
+              {history.length === 0 ? "" : totalsum}
             </TableCell>
             <TableCell></TableCell>
           </TableRow>
