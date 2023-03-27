@@ -1,0 +1,25 @@
+#headermiddle span {
+  cursor: pointer;
+}
+
+#headerbutton button {
+  font-size: 20px;
+  border: none;
+  background-color: transparent;
+}
+#welcoming {
+  color: red;
+}
+#smallicon {
+  display: none;
+  color: red;
+}
+@media only screen and (max-width: 600px) {
+  #welcoming {
+    /* font-size: 12px; */
+    display: none;
+  }
+  #smallicon {
+    display: inline;
+  }
+}
