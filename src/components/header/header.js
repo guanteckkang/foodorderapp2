@@ -7,8 +7,8 @@ import { styled } from "@mui/material/styles";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { CartUseContext } from "../../content/cart-contex";
 import reverse from "../../img/reverse.png";
-
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./header.css";
 
 const style = {
@@ -25,8 +25,8 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 export default function Header({ id, setId }) {
-  const { cart, showmodal, navigate } = CartUseContext();
-
+  const { cart, showmodal } = CartUseContext();
+  const navigate = useNavigate();
   useEffect(() => {
     if (id === null) {
       navigate("/");

@@ -9,7 +9,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
 import { CartUseContext } from "../../content/cart-contex";
 import { ItemUseContext } from "../../content/item-contex";
-
+import { useState } from "react";
 export function CheckOut() {
   const { item, cart, setCart, hidemodal, addItem, removeItem, menu, setMenu } =
     CartUseContext();
