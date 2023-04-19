@@ -7,10 +7,10 @@
   border: none;
   background-color: transparent;
 }
-#welcoming {
+.welcoming {
   color: red;
 }
-#smallicon {
+.smallicon {
   display: none;
   color: red;
 }
@@ -19,7 +19,7 @@
     /* font-size: 12px; */
     display: none;
   }
-  #smallicon {
+  .smallicon {
     display: inline;
   }
 }

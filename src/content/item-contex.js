@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { createContext, useContext, useState } from "react";
 
 export const itemcontext = createContext();
@@ -8,6 +9,17 @@ export function ItemContextProvider({ children }) {
   const [data, setData] = useState();
   const [history, setHistory] = useState([]);
 
+  useEffect(() => {
+    const LocalHistory = JSON.parse(localStorage.getItem("History"));
+    if (LocalHistory === null) {
+      localStorage.setItem("History", JSON.stringify([]));
+    } else {
+      setHistory(LocalHistory);
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("History", JSON.stringify(history));
+  }, [history]);
   const handleOpen = (num, info) => {
     setOpen(true);
     setModal(num);

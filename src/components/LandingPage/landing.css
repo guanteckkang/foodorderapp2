@@ -4,18 +4,10 @@
   margin: 20px;
   color: rgba(249, 180, 45, 0.9);
 }
-@media only screen and (max-width: 600px) {
-  #header {
-    font-size: 15px;
-  }
-  #text {
-    display: none;
-  }
-  #landingcredit {
-    color: white;
-  }
-  #mainlanding {
-    height: 100%bvh;
-    /* background-color: black; */
-  }
+#maintext {
+  /* border: solid 3px white; */
+  width: 50%;
+}
+#text {
+  margin-top: 30px;
 }

@@ -9,11 +9,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
 import { CartUseContext } from "../../content/cart-contex";
 import { ItemUseContext } from "../../content/item-contex";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 export function CheckOut() {
   const { item, cart, setCart, hidemodal, addItem, removeItem, menu, setMenu } =
     CartUseContext();
   const { history, setHistory } = ItemUseContext();
+  const [cartItem, setCartItem] = useState([]);
   const [none, setNone] = useState("none");
 
   const closebox = () => {
@@ -47,9 +48,22 @@ export function CheckOut() {
     }
   }
 
+  function pushItem() {
+    const items = [];
+    for (let i of cart) {
+      items.push(`${i.quantity} x ${i.name}`);
+    }
+    setCartItem(items);
+  }
+
+  useEffect(() => {
+    pushItem();
+  }, [cart]);
+
   function checkoutcart(totalsum, totalquantity) {
     const pastbuy = {
       date: new Date().toUTCString(),
+      item: cartItem,
       quantity: JSON.parse(totalquantity),
       sum: JSON.parse(totalsum),
     };
@@ -157,6 +171,7 @@ export function CheckOut() {
                 <Button
                   style={{ color: "black" }}
                   onClick={() => {
+                    pushItem();
                     checkoutcart(totalsum, totalquantity);
                   }}
                 >

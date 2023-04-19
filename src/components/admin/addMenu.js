@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CartUseContext } from "../../content/cart-contex";
 import AirplayIcon from "@mui/icons-material/Airplay";
 import EditIcon from "@mui/icons-material/Edit";
@@ -10,33 +10,26 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import "./addMenu.css";
-import { v4 as uuidv4 } from "uuid";
+import { v4 } from "uuid";
+import axios from "axios";
 
 export function AddMenu() {
-  const { menu, setMenu } = CartUseContext();
-  const [card, setCard] = useState({
+  const original = {
+    uid: v4(),
     name: "",
     sku: "",
     price: 0,
-    quantity: 0,
     description: "",
     url: "",
     display: true,
-  });
-  const { name, sku, price, quantity, description, url } = card;
-  const uid = uuidv4();
+  };
+
+  const { menu, setMenu } = CartUseContext();
+  const [card, setCard] = useState(original);
+  const { name, sku, price, description, url } = card;
+
   function resetvalue() {
-    setCard({
-      uid: uid,
-      name: "",
-      sku: "",
-      price: 0,
-      quantity: 0,
-      description: "",
-      url: "",
-      display: true,
-    });
-    console.log(uid);
+    setCard(original);
   }
 
   function add(e) {
@@ -44,16 +37,12 @@ export function AddMenu() {
     const compareSKU = menu.findIndex((i) => {
       return i.sku === sku;
     });
-    let asdas = "fsadf";
-    console.log(asdas / 1);
-    if (compareSKU === -1 && price >= 0 && quantity > 0) {
+    if (compareSKU === -1 && price >= 0) {
       setMenu((prev) => [...prev, card]);
       resetvalue();
       alert("Product added");
     } else if (price < 0 || price / 1 === isNaN) {
       alert("The price must be at least Rm 0 ");
-    } else if (quantity <= 0 || quantity / 1 === isNaN) {
-      alert("The quantity must be at least 1 ");
     } else if (compareSKU > 0) {
       alert("Choose different SKU");
     } else {
@@ -61,6 +50,19 @@ export function AddMenu() {
     }
   }
 
+  function imageUpload(file) {
+    console.log("file", file);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "cqaqrq5u");
+    axios
+      .post("http://api.cloudinary.com/v1_1/dfve48vyq/image/upload", formData)
+      .then((res) => {
+        console.log("upload completed");
+        setCard({ ...card, url: res.data.url });
+      })
+      .catch((err) => alert(`Something when error \n ${err}`));
+  }
   return (
     <form onSubmit={add} id="addform">
       <div id="formfield">
@@ -74,9 +76,7 @@ export function AddMenu() {
               type="text"
               value={name}
               onChange={(e) => {
-                setCard((prev) => {
-                  return { ...prev, name: e.target.value };
-                });
+                setCard({ ...card, name: e.target.value });
               }}
               placeholder="name"
             />
@@ -92,9 +92,7 @@ export function AddMenu() {
               type="text"
               value={sku}
               onChange={(e) => {
-                setCard((prev) => {
-                  return { ...prev, sku: e.target.value };
-                });
+                setCard({ ...card, sku: e.target.value });
               }}
               placeholder="sku"
             />
@@ -107,49 +105,26 @@ export function AddMenu() {
           <div className="input">
             <input
               required
-              type="price"
+              type="number"
               value={price}
               onChange={(e) => {
-                setCard((prev) => {
-                  return { ...prev, price: e.target.value };
-                });
+                setCard({ ...card, price: parseInt(e.target.value) });
               }}
-              placeholder="Price"
             />
           </div>
         </div>
         <div className="field">
           <div className="label">
-            <label>Quantity:</label>
+            <label>File:</label>
           </div>
           <div className="input">
             <input
               required
-              type="number"
-              value={quantity}
+              // type="text"
+              type="file"
+              style={{ display: "inline-block" }}
               onChange={(e) => {
-                setCard((prev) => {
-                  return { ...prev, quantity: e.target.value };
-                });
-              }}
-              placeholder="quantity"
-            />
-          </div>
-        </div>
-
-        <div className="field">
-          <div className="label">
-            <label>URL:</label>
-          </div>
-          <div className="input">
-            <input
-              required
-              type="text"
-              value={url}
-              onChange={(e) => {
-                setCard((prev) => {
-                  return { ...prev, url: e.target.value };
-                });
+                imageUpload(e.target.files[0]);
               }}
               placeholder="url"
             />
@@ -207,7 +182,7 @@ export function AddMenu() {
                   color="text.secondary"
                   component="div"
                 >
-                  Quantity: {quantity}
+                  {description ? description : "sample description"}
                 </Typography>
               </CardContent>
               <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>

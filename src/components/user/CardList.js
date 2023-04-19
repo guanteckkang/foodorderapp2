@@ -2,18 +2,24 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { CartUseContext } from "../../content/cart-contex";
 import "./CardList.css";
 
 export default function CardList({ info }) {
   const { addItem, removeItem, cart } = CartUseContext();
-  const { name, price, url, quantity } = info;
+  const { name, price, url, description } = info;
 
   const findItem = cart.find((e) => {
     return e.name === name;
   });
+
+  const buttoninside = {
+    color: "white",
+    margin: "auto",
+    justifyContent: "center",
+    fontSize: "larger",
+  };
 
   return (
     <Card
@@ -47,7 +53,7 @@ export default function CardList({ info }) {
               color="text.secondary"
               component="div"
             >
-              Quantity: {quantity}
+              {description}
             </Typography>
           </CardContent>
         </Box>
@@ -60,39 +66,14 @@ export default function CardList({ info }) {
           pb: 1,
           flexDirection: "column",
           width: "10%",
+          backgroundColor: `${!findItem ? "blue" : "red"}`,
         }}
-        id="usercardbox"
+        onClick={() => {
+          !findItem ? addItem({ info }) : removeItem({ info });
+        }}
       >
-        <IconButton
-          style={{ height: "50%", color: "red", alignItems: "center" }}
-          disabled
-        >
-          {!findItem ? 0 : findItem.quantity}
-        </IconButton>
-        <div
-          style={{
-            height: "50%",
-            textAlign: "space-around",
-          }}
-        >
-          <IconButton
-            style={{ color: "blue", width: "50%" }}
-            onClick={() => {
-              removeItem({ info });
-            }}
-            disabled={findItem === undefined}
-          >
-            -
-          </IconButton>
-          <IconButton
-            style={{ color: "blue", width: "50%" }}
-            onClick={() => {
-              addItem({ info });
-            }}
-            disabled={quantity === 0}
-          >
-            +
-          </IconButton>
+        <div style={buttoninside}>
+          {!findItem ? "Add To Card" : "Remove From Cart"}
         </div>
       </Box>
     </Card>

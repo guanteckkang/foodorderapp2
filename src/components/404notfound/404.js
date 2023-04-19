@@ -1,11 +1,10 @@
-import { useNavigate } from "react-router-dom";
+import { CartUseContext } from "../../content/cart-contex";
 
-export const NotFound = ({ setId }) => {
-  const navigate = useNavigate();
+export const NotFound = () => {
+  const { navigate, setId } = CartUseContext();
 
-  setId(null);
   setTimeout(() => {
-    setId(false);
+    setId(true);
     navigate("/");
   }, 2000);
 

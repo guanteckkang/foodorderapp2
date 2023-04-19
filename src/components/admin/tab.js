@@ -3,17 +3,15 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import PropTypes from "prop-types";
-
 import { CartUseContext } from "../../content/cart-contex";
 import DisplayModal from "./ModalDisplay";
 import { AddMenu } from "./addMenu";
 import History from "./History";
-
 import ItemCard from "./card";
 import ClearIcon from "@mui/icons-material/Clear";
 import TextField from "@mui/material/TextField";
 import { useState, useEffect } from "react";
-
+import Testing from "../../content/Cloudinary";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
   return (
@@ -79,7 +77,7 @@ export function BasicTabs() {
           <Tab label="All item" {...a11yProps(0)} style={{ color: "red" }} />
           <Tab label="Add item" {...a11yProps(1)} style={{ color: "red" }} />
           <Tab label="History" {...a11yProps(2)} style={{ color: "red" }} />
-          {/* <Tab label="Sales" {...a11yProps(3)} /> */}
+          {/* <Tab label="Test" {...a11yProps(3)} /> */}
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -117,7 +115,7 @@ export function BasicTabs() {
         <History />
       </TabPanel>
       {/* <TabPanel value={value} index={3}>
-        <Chart />
+        <Testing />
       </TabPanel> */}
       <DisplayModal />
     </Box>

@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+}
+.cardmain {
+  height: 80%;
+  display: flex;
+}
+.cardimage {
+  width: 50%;
+}
+.cardtext {
+  display: inline-block;
+  margin-left: 5%;
+  width: 50%;
+}
+.cardbutton {
+  height: 20%;
+}

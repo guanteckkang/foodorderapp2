@@ -1,15 +1,42 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { createContext } from "react";
 import { item } from "./item";
+import { useNavigate } from "react-router-dom";
 export const cartcontext = createContext();
 
 export function CartContextProvider({ children }) {
+  const [id, setId] = useState(true);
   const [menu, setMenu] = useState(item); //the main menu
   const [cart, setCart] = useState([]); //the cart list
-
+  const navigate = useNavigate();
   // filter display result
   const [text, setText] = useState("");
   const [search, setSearch] = useState("");
+
+  //save local at beginning
+  useEffect(() => {
+    const LocalMenu = JSON.parse(localStorage.getItem("Menu"));
+    const LocalCart = JSON.parse(localStorage.getItem("Cart"));
+    if (LocalMenu === null) {
+      localStorage.setItem("Menu", JSON.stringify(item));
+      setMenu(item);
+    } else {
+      setMenu(LocalMenu);
+    }
+    if (LocalCart === null) {
+      localStorage.setItem("Cart", JSON.stringify([]));
+    } else {
+      setCart(LocalCart);
+    }
+  }, []);
+  //auto save menu
+  useEffect(() => {
+    localStorage.setItem("Menu", JSON.stringify(menu));
+  }, [menu]);
+  //auto save cart
+  useEffect(() => {
+    localStorage.setItem("Cart", JSON.stringify(cart));
+  }, [cart]);
 
   const menu2 = menu?.filter((e) => {
     return e.display;
@@ -53,27 +80,9 @@ export function CartContextProvider({ children }) {
       });
       setCart(updatedCart);
     }
-    const updatedMenu = menu.map((each) => {
-      if (each.sku === info.sku) {
-        return {
-          ...each,
-          quantity: each?.quantity - 1,
-        };
-      } else return each;
-    });
-    setMenu(updatedMenu);
   }
   // user remove function
   function removeItem({ info }) {
-    const updatedMenu = menu.map((each) => {
-      if (each.sku === info.sku) {
-        return {
-          ...each,
-          quantity: each.quantity + 1,
-        };
-      } else return each;
-    });
-    setMenu(updatedMenu);
     const updatedCart = cart.map((each) => {
       if (each.sku === info.sku) {
         return {
@@ -93,6 +102,8 @@ export function CartContextProvider({ children }) {
   }
 
   let value = {
+    id,
+    setId,
     menu3,
     search,
     setSearch,
@@ -109,6 +120,7 @@ export function CartContextProvider({ children }) {
     setCart,
     addItem,
     removeItem,
+    navigate,
   };
   return <cartcontext.Provider value={value}>{children}</cartcontext.Provider>;
 }

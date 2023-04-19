@@ -7,8 +7,6 @@ import { styled } from "@mui/material/styles";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { CartUseContext } from "../../content/cart-contex";
 import reverse from "../../img/reverse.png";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import "./header.css";
 
 const style = {
@@ -24,46 +22,15 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-export default function Header({ id, setId }) {
-  const { cart, showmodal } = CartUseContext();
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (id === null) {
-      navigate("/");
-    }
-  }, []);
+export default function Header() {
+  const { id, cart, showmodal, navigate } = CartUseContext();
 
-  function back() {
-    navigate("/");
-    setId(null);
-  }
-  function change() {
-    setId(!id);
-    if (id === true) {
-      navigate("/admin");
-    } else if (id === false) {
-      navigate("/user");
-    }
-  }
   return (
     <AppBar position="sticky" sx={style}>
       <Toolbar>
-        <img
-          src={reverse}
-          alt=""
-          width="50px"
-          disabled
-          onClick={back}
-          style={{ cursor: "pointer" }}
-        />
+        <img src={reverse} alt="" width="50px" disabled />
 
-        <Typography
-          variant="h6"
-          component="div"
-          sx={{ flexGrow: 1, cursor: "default" }}
-          onClick={back}
-          style={{ cursor: "pointer" }}
-        >
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           WcDonalds
         </Typography>
 
@@ -73,13 +40,7 @@ export default function Header({ id, setId }) {
           sx={{ flexGrow: 1 }}
           id="headermiddle"
         >
-          {id === null ? (
-            <></>
-          ) : id === true ? (
-            <span onClick={change}>Menu</span>
-          ) : (
-            <span onClick={change}> Item </span>
-          )}
+          {id === true ? <span>Welcome</span> : <span> Menu Management </span>}
         </Typography>
         {id === true ? (
           <IconButton aria-label="cart" onClick={showmodal}>
@@ -95,7 +56,7 @@ export default function Header({ id, setId }) {
             onClick={() => {
               navigate("/contact");
             }}
-            id="welcoming"
+            className="welcoming"
           >
             Contact
           </button>
@@ -103,7 +64,7 @@ export default function Header({ id, setId }) {
             onClick={() => {
               navigate("/contact");
             }}
-            id="smallicon"
+            className="smallicon"
           >
             <ContactPageIcon />
           </button>
@@ -111,7 +72,7 @@ export default function Header({ id, setId }) {
             onClick={() => {
               navigate("/aboutus");
             }}
-            id="welcoming"
+            className="welcoming"
           >
             About Us
           </button>
@@ -119,7 +80,7 @@ export default function Header({ id, setId }) {
             onClick={() => {
               navigate("/aboutus");
             }}
-            id="smallicon"
+            className="smallicon"
           >
             <InfoIcon />
           </button>

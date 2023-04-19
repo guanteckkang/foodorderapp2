@@ -10,7 +10,6 @@ import { ItemUseContext } from "../../content/item-contex";
 
 export default function History() {
   const { history, setHistory } = ItemUseContext();
-
   const r = {
     color: "red",
   };
@@ -18,7 +17,6 @@ export default function History() {
   function deleteAll() {
     setHistory([]);
   }
-
   const totalsum = history
     .map((x) => x.sum)
     .reduce((x, y) => x + y, 0)
@@ -35,7 +33,10 @@ export default function History() {
             <TableCell style={r}>No.</TableCell>
             <TableCell style={r}>Date</TableCell>
             <TableCell align="center" style={r}>
-              Quantity
+              Item (s)
+            </TableCell>
+            <TableCell align="center" style={r}>
+              Total Quantity (s)
             </TableCell>
             <TableCell align="right" style={r}>
               Sum (Rm)
@@ -54,7 +55,7 @@ export default function History() {
             </TableRow>
           ) : (
             history.map((i, index) => {
-              const { date, quantity, sum } = i;
+              const { date, quantity, sum, item } = i;
               return (
                 <TableRow
                   key={index}
@@ -64,6 +65,11 @@ export default function History() {
                     {index + 1}
                   </TableCell>
                   <TableCell>{date}</TableCell>
+                  <TableCell align="center">
+                    {item?.map((e, index) => {
+                      return <p key={index}>{e}</p>;
+                    })}
+                  </TableCell>
                   <TableCell align="center">{quantity}</TableCell>
                   <TableCell align="right">{sum}</TableCell>
                 </TableRow>
